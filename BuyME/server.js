@@ -2,11 +2,14 @@ var express = require('express');
 var path = require('path');
 var cors = require('cors');
 var bodyparser = require('body-parser');
+var passport = require('passport');
+
 var users = require('./routes/users');
 var home = require('./routes/home');
+var register = require('./routes/register');
+
 var mongoose = require('mongoose');
-var passport = require('passport');
-var config = require('./config/database')
+var config = require('./config/database');
 
 var app = express();
 
@@ -28,6 +31,7 @@ app.use(express.static(__dirname + "/public"));
 //app.use(express.static(__dirname + "/public/user_registation.html"));
 app.use('/users',users);  
 app.use('/home',home);
+app.use('/register',register);
 
 //passport middleware
 app.use(passport.initialize());
