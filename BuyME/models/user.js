@@ -4,14 +4,16 @@ var config = require('../config/database');
 
 //User Schema
 var UserSchema = mongoose.Schema({
-    name: {
-        type: String
-    },
+    
     username: {
         type: String,
         required: true
     },
     password:{
+        type: String,
+        required: true
+    },
+    user_role:{
         type: String,
         required: true
     }
@@ -36,7 +38,7 @@ module.exports.addUser = function (newUser, callback) {
             newUser.password = hash;
             newUser.save(callback);
         })
-    })
+    });
 }
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {

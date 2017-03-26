@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login_buyplant</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/user.css">
+    <link rel="stylesheet" href="assets/css/user.css">    
 </head>
 
 <body ng-app="myApp">
@@ -32,12 +32,21 @@
                 </div>
                 <button class="btn btn-default submit-button" type="button" ng-click="user.login()">Login</button>
             </form>
+            <div class="row">               
+                 <div class="col-md-6">
+                     <p class="text-right">not Registered Yet?</p>
+                 </div>
+                 <div class="col-md-6">
+                     <a href="/home/main">Click here to Register</a>
+                 </div>
+            </div>
         </div>
     </div>
+    
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"> </script>
-    <script src="userRegistation/controllers/controller.js"> </script>
+    <script src="controllers/controller.js"> </script>
 </body>
 
 </html>

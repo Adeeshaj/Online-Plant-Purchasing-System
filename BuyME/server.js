@@ -3,6 +3,7 @@ var path = require('path');
 var cors = require('cors');
 var bodyparser = require('body-parser');
 var users = require('./routes/users');
+var home = require('./routes/home');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('./config/database')
@@ -24,8 +25,9 @@ mongoose.connection.on('error',function(err){
 app.use(cors());
 app.use(bodyparser.json());
 app.use(express.static(__dirname + "/public"));
-//app.use(express.static(__dirname + "/public/userRegistation"));
+//app.use(express.static(__dirname + "/public/user_registation.html"));
 app.use('/users',users);  
+app.use('/home',home);
 
 //passport middleware
 app.use(passport.initialize());
