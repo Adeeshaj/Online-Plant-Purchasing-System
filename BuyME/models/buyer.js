@@ -1,17 +1,18 @@
 var mongoose = require('mongoose');
+var config = require('../config/database');
 
 //buyer schema
 var BuyerSchema = mongoose.Schema({
     
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     name:{
         type: String,
         required: true
     },
-    distirct:{
+    district:{
         type: String,
         required: true
     },
@@ -48,3 +49,7 @@ var BuyerSchema = mongoose.Schema({
 });
 
 var Buyer = module.exports = mongoose.model('Buyer',BuyerSchema);
+
+module.exports.addBuyer = function (newBuyer) {
+    newBuyer.save();
+}

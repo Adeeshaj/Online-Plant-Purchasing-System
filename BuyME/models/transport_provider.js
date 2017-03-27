@@ -4,14 +4,14 @@ var mongoose = require('mongoose');
 var TransportProviderSchema = mongoose.Schema({
     
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     name:{
         type: String,
         required: true
     },
-    distirct:{
+    district:{
         type: String,
         required: true
     },
@@ -41,3 +41,7 @@ var TransportProviderSchema = mongoose.Schema({
 });
 
 var TransportProvider = module.exports = mongoose.model('TransportProvider',TransportProviderSchema);
+
+module.exports.addTransportProvider = function (newTransportProvider) {
+    newTransportProvider.save();
+}

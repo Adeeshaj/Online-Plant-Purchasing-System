@@ -14,6 +14,7 @@ var config = require('./config/database');
 var app = express();
 
 //database connection
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 mongoose.connection.on('connected', function(){
     console.log("Connected to database " + config.database)
@@ -27,8 +28,9 @@ mongoose.connection.on('error',function(err){
 //Using Middlewares
 app.use(cors());
 app.use(bodyparser.json());
+
+//route middlewares
 app.use(express.static(__dirname + "/public"));
-//app.use(express.static(__dirname + "/public/user_registation.html"));
 app.use('/users',users);  
 app.use('/home',home);
 app.use('/register',register);

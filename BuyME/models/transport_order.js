@@ -31,7 +31,17 @@ var TransportOrderSchema = mongoose.Schema({
         product_id: Schema.Types.ObjectId,
         product_name: String,
         product_quantity: String
+    },
+    ordered_date:{
+        //order created
+    },
+    requested_date:{
+        //request to date
+    },
+    recieved_date:{
+        //recieved_date
     }
+    
     
         
 });

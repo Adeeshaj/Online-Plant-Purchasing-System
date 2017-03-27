@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var AdminSchema = mongoose.Schema({
     
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     name:{
@@ -23,8 +23,16 @@ var AdminSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    verified:{
+        type: Boolean,
+        required: true
+    },
     notification:[]
     
 });
 
 var Admin = module.exports = mongoose.model('Admin',AdminSchema);
+
+module.exports.addAdmin = function (newAdmin) {
+    newAdmin.save();
+}

@@ -4,14 +4,14 @@ var mongoose = require('mongoose');
 var SellerSchema = mongoose.Schema({
     
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     name:{
         type: String,
         required: true
     },
-    distirct:{
+    district:{
         type: String,
         required: true
     },
@@ -54,3 +54,7 @@ var SellerSchema = mongoose.Schema({
 });
 
 var Seller = module.exports = mongoose.model('Seller',SellerSchema);
+
+module.exports.addSeller = function (newSeller) {
+    newSeller.save();
+}

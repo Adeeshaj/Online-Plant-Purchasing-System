@@ -32,13 +32,24 @@ module.exports.getUserByUsername = function (username,callback) {
 }
 
 module.exports.addUser = function (newUser, callback) {
-    bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(newUser.password,salt,function (err, hash) {
-            if(err) throw err;
-            newUser.password = hash;
-            newUser.save(callback);
-        })
+    User.getUserByUsername(newUser.username,function (err,user) {
+        if(err) throw err;
+        if(!user){
+            bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(newUser.password,salt,function (err, hash) {
+                if(err) throw err;
+                newUser.password = hash;
+                console.log(newUser);
+                newUser.save(callback);
+            })
+        });
+        }
+        else{
+             console.log("please try another username");
+        }
     });
+   
+    
 }
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {

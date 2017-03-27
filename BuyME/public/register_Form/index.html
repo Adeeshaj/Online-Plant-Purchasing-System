@@ -5,94 +5,364 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>registration</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/userRegisterForm.css">
+    <link rel="stylesheet" href="register_form/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="register_form/assets/css/user.css">
 </head>
 
 <body ng-app="myApp">
-    <div class="row register-form" ng-controller="appCtrl">
-        <div class="col-md-8 col-md-offset-2">
-            <form class="form-horizontal custom-form">
-                <h1>Register Form</h1>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="name-input-field">Name </label>
-                    </div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" type="text" ng-model="user.name">
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="name-input-field">User Name </label>
-                    </div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" type="text" ng-model="user.username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="name-input-field">Address </label>
-                    </div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" type="text" ng-model="user.address">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="input-field">Moblie Number</label>
-                    </div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" type="text" ng-model="user.mobileNumber">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="pawssword-input-field">Password </label>
-                    </div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" type="password" ng-model="user.password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="repeat-pawssword-input-field">Repeat Password </label>
-                    </div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" type="password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="name-input-field">Location </label>
-                    </div>
-                    <div class="col-sm-6 input-column"><a href="#">add Location</a></div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-4 label-column">
-                        <label class="control-label" for="dropdown-input-field">User Type</label>
-                    </div>
-                    <div class="col-sm-4 input-column">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"> choose user... <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a >seller</a></li>
-                                <li><a >buyer</a></li>
-                                <li><a >transport provider</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox">I've read and accept the terms and conditions</label>
-                </div>
-                <button class="btn btn-default submit-button" type="button" ng-click="user.addUser()">Register </button>
-            </form>
+    <div id="tabs" ng-controller="registerCtrl" >
+        <div class="btn-group btn-group-lg col-md-8 col-md-offset-3" role="group" aria-label="Large button group">
+            <button type="button" class="btn btn-info" ng-repeat="tab in tabs" 
+                ng-class="{active:isActiveTab(tab.url)}" 
+                ng-click="onClickTab(tab)">{{tab.title}}</button>
+        </div>
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
         </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/ng-template" id="buyer.tpl.html">
+		<div id="BuyerRegiserView">
+            <div class="row register-form" ng-controller="appCtrl">
+                <div class="col-md-8 col-md-offset-2">
+                    <form class="form-horizontal custom-form">
+                        <h1>Buyer Register Form</h1>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">User Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">District </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.district">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Address </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">National ID Number </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.nic">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="input-field">Moblie Number</label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.mobileNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="pawssword-input-field">Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password" ng-model="user.password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="repeat-pawssword-input-field">Repeat Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Location </label>
+                            </div>
+                            <div class="col-sm-6 input-column"><a href="#">add Location</a></div>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">I've read and accept the terms and conditions</label>
+                        </div>
+                        <button class="btn btn-default submit-button" type="button" ng-click="user.addUser('buyer')">Register </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</script>
+	
+	<script type="text/ng-template" id="seller.tpl.html">
+		<div id="sellerRegisterView">
+			<div class="row register-form" ng-controller="appCtrl">
+                <div class="col-md-8 col-md-offset-2">
+                    <form class="form-horizontal custom-form">
+                        <h1>Seller Register Form</h1>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">User Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">District </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.district">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Address </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Garden Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.garden_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">National ID Number </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.nic">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="input-field">Moblie Number</label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.mobileNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="pawssword-input-field">Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password" ng-model="user.password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="repeat-pawssword-input-field">Repeat Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Location </label>
+                            </div>
+                            <div class="col-sm-6 input-column"><a href="#">add Location</a></div>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">I've read and accept the terms and conditions</label>
+                        </div>
+                        <button class="btn btn-default submit-button" type="button" ng-click="user.addUser('seller')">Register </button>
+                    </form>
+                </div>
+            </div>
+	</script>
+	
+	<script type="text/ng-template" id="transport_provider.tpl.html">
+		<div id="trasnportProviderRegisterView">
+			<div class="row register-form" ng-controller="appCtrl">
+                <div class="col-md-8 col-md-offset-2">
+                    <form class="form-horizontal custom-form">
+                        <h1>Transport Provider Register Form</h1>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">User Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">District </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.district">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Address </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">National ID Number </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.nic">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="input-field">Moblie Number</label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.mobileNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="pawssword-input-field">Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password" ng-model="user.password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="repeat-pawssword-input-field">Repeat Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Location </label>
+                            </div>
+                            <div class="col-sm-6 input-column"><a href="#">add Location</a></div>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">I've read and accept the terms and conditions</label>
+                        </div>
+                        <button class="btn btn-default submit-button" type="button" ng-click="user.addUser('transport_provider')">Register </button>
+                    </form>
+                </div>
+            </div>
+	</script>
+    
+    <script type="text/ng-template" id="admin.tpl.html">
+		<div id="adminRegiserView">
+			<div class="row register-form" ng-controller="appCtrl">
+                <div class="col-md-8 col-md-offset-2">
+                    <form class="form-horizontal custom-form">
+                        <h1>Admin Register Form</h1>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">User Name </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="email-input-field">email</label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="email" ng-model="user.email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="name-input-field">National ID Number </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.nic">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="input-field">Moblie Number</label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="text" ng-model="user.mobileNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="pawssword-input-field">Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password" ng-model="user.password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 label-column">
+                                <label class="control-label" for="repeat-pawssword-input-field">Repeat Password </label>
+                            </div>
+                            <div class="col-sm-6 input-column">
+                                <input class="form-control" type="password">
+                            </div>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">I've read and accept the terms and conditions</label>
+                        </div>
+                        <button class="btn btn-default submit-button" type="button" ng-click="user.addUser('admin')">Register </button>
+                    </form>
+                </div>
+            </div>
+	</script>
+    
+   
+    </div>
+    <script src="register_form/assets/js/jquery.min.js"></script>
+    <script src="register_form/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"> </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
     <script src="/../controllers/controller.js"> </script>
