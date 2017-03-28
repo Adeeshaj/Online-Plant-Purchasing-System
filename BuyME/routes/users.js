@@ -8,6 +8,7 @@ var Seller = require('../models/seller');
 var TransportProvider = require('../models/transport_provider');
 var Admin = require('../models/admin');
 var config = require('../config/database');
+var path = require('path');
 
 router.post('/register',function (req,res,next) {
     let newUser = new User({
@@ -133,14 +134,14 @@ router.post('/auth',function (req,res,next) {
                 var token = jwt.sign(user,config.secret,{
                     expiresIn: 604800 // 1 week
                 });
-                
+
                 res.json({
                     sucess: true,
                     token: 'JWT '+token,
                     user:{
                         id: user._id,
-                        name: user.name,
-                        username: user.username
+                        username: user.username,
+                        user_role: user.user_role   
                     }
                 });
             }else{
@@ -153,6 +154,7 @@ router.post('/auth',function (req,res,next) {
 
 router.get('/profile', passport.authenticate('jwt', {session:false}),function (req,res,next) {
     res.json({user: req.user});
+    res.sendFile(path.join(__dirname+'/../public/user_profile/index.html'));
 });
 
 module.exports = router;

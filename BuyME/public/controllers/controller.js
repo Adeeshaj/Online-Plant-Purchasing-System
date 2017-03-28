@@ -1,4 +1,20 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ['ngRoute']);
+
+myApp.config([ '$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider) {   
+        $routeProvider.when('/', {
+            templateUrl : 'login.html',
+            controller : 'loginCtrl'
+        })
+       $routeProvider.when('/users/profile', {
+            templateUrl : 'user_profile/index.html',
+            controller : 'profileCtrl'
+        }).otherwise({
+            redirectTo : 'ind.html'
+        });
+        //$locationProvider.html5Mode(true); //Remove the '#' from URL.
+    } 
+]);
 
 myApp.controller('appCtrl',['$scope','$http',function ($scope,$http) {
     console.log("hello from app controller");
@@ -12,7 +28,7 @@ myApp.controller('appCtrl',['$scope','$http',function ($scope,$http) {
                 data: $scope.user
             }).then(function successCallback(response) {
                 console.log(response);
-                console.log("post /users/register success");
+   
              }, function errorCallback(response) {
                 console.log("Err in post");
                 console.log(response);
@@ -22,7 +38,7 @@ myApp.controller('appCtrl',['$scope','$http',function ($scope,$http) {
     }
 }]);
 
-myApp.controller('loginCtrl',['$scope','$http',function($scope,$http){
+myApp.controller('loginCtrl',['$scope','$http','$window','$location',function($scope,$http,$window,$location){
     console.log("hello from loginCtrl");
     $scope.user = {
         login: function () {
@@ -32,7 +48,24 @@ myApp.controller('loginCtrl',['$scope','$http',function($scope,$http){
                 data: $scope.user
             }).then(function successCallback(response) {
                 console.log(response);
-                console.log("post /users/auth success");
+                var token = response.data.token;
+                 $http({
+                    method: 'GET',
+                    url: '/users/profile',
+                    headers:{
+                        Content_Type: 'application/json',
+                        Authorization: response.data.token
+                    }
+                }).then(function successCallback(response) {
+                     console.log("success user get");
+                     $window.localStorage.setItem('id_token',angular.toJson(token));
+                     $window.localStorage.setItem('user',angular.toJson(response.data.user));
+                     $location.path("/users/profile" );
+                },function errorCallback(response) {
+                    
+                    console.log("ERr in get");
+                    console.log(response);
+                });
              }, function errorCallback(response) {
                 console.log("Err in post");
                 console.log(response);
@@ -67,3 +100,10 @@ myApp.controller('registerCtrl',['$scope',function($scope){
         return tabUrl == $scope.currentTab;
     }
 }]);
+
+myApp.controller('profileCtrl',['$scope',function($scope){
+    console.log("hello from profileCtrl");
+    
+    
+}]);
+

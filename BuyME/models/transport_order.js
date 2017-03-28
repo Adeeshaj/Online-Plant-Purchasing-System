@@ -40,6 +40,22 @@ var TransportOrderSchema = mongoose.Schema({
     },
     recieved_date:{
         //recieved_date
+    },
+    buyer_conform_delivery:{
+        type: Boolean,
+        required: true
+    },
+    seller_conform_handover:{
+        type: Boolean,
+        required: true
+    },
+    transport_provider_conform_delivery:{
+        type: Boolean,
+        required: true
+    },
+    transport_provider_conform_handorver:{
+        type: Boolean,
+        required: true
     }
     
     

@@ -44,7 +44,7 @@ var SellerSchema = mongoose.Schema({
         required: true
     },
     products:[],//should add json object{object_id,object_name, quantity}
-    notification:[],
+    notification:[], // should add notification, active or not, date created
     transport_orders:[],
     ratings:[],
     profile_pic:{
