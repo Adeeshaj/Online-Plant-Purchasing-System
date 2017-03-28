@@ -39,13 +39,13 @@ module.exports.addUser = function (newUser, callback) {
             bcrypt.hash(newUser.password,salt,function (err, hash) {
                 if(err) throw err;
                 newUser.password = hash;
-                console.log(newUser);
                 newUser.save(callback);
             })
         });
         }
         else{
-             console.log("please try another username");
+             callback("select another username");
+             console.log("select another username");
         }
     });
    

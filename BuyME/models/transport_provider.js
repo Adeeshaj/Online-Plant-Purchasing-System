@@ -45,3 +45,8 @@ var TransportProvider = module.exports = mongoose.model('TransportProvider',Tran
 module.exports.addTransportProvider = function (newTransportProvider) {
     newTransportProvider.save();
 }
+
+module.exports.getTransportProviderByUserId = function (user_id,callback) {
+    var query = {user_id: user_id}
+    TransportProvider.findOne(query,callback);
+}

@@ -1,12 +1,16 @@
 var myApp = angular.module("myApp", ['ngRoute']);
 
 myApp.config([ '$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {   
+    function($routeProvider, $locationProvider) {  
         $routeProvider.when('/', {
-            templateUrl : 'login.html',
+            templateUrl : 'home_page/index.html',
+            controller : 'homeCtrl'
+        }) 
+        $routeProvider.when('/login', {
+            templateUrl : 'login/login.html',
             controller : 'loginCtrl'
         })
-       $routeProvider.when('/users/profile', {
+       $routeProvider.when('/dashboard', {
             templateUrl : 'user_profile/index.html',
             controller : 'profileCtrl'
         }).otherwise({
@@ -60,7 +64,7 @@ myApp.controller('loginCtrl',['$scope','$http','$window','$location',function($s
                      console.log("success user get");
                      $window.localStorage.setItem('id_token',angular.toJson(token));
                      $window.localStorage.setItem('user',angular.toJson(response.data.user));
-                     $location.path("/users/profile" );
+                     $location.path("/dashboard");
                 },function errorCallback(response) {
                     
                     console.log("ERr in get");
@@ -101,9 +105,36 @@ myApp.controller('registerCtrl',['$scope',function($scope){
     }
 }]);
 
-myApp.controller('profileCtrl',['$scope',function($scope){
+myApp.controller('profileCtrl',['$scope','$window','$http',function($scope,$window,$http){
     console.log("hello from profileCtrl");
     
+    $http({
+        mehtod: 'GET',
+        url: 'users/getUser',
+        params: {user:angular.fromJson($window.localStorage.getItem('user'))._id, user_role:angular.fromJson($window.localStorage.getItem('user')).user_role }
+    }).then(function successCallback(response){
+        console.log(response);
+        $scope.name = response.data.name;
+        $scope.address = response.data.address;
+        $scope.mobile_number = response.data.mobile_num;
+    },function errorCallback(response){
+        console.log(response);
+    })
     
 }]);
 
+myApp.controller('homeCtrl',['$scope',function($scope){
+    
+}]);
+
+myApp.controller('headerCtrl',['$scope','$location',function($scope,$location){
+    $scope.getlogin = function(){
+        $location.path("/login");
+    }
+    $scope.gethome = function(){
+        $location.path("/");
+    }
+    $scope.getprofile = function(){
+        $location.path("/dashboard");
+    }
+}]);

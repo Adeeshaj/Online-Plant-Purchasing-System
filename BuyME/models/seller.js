@@ -58,3 +58,8 @@ var Seller = module.exports = mongoose.model('Seller',SellerSchema);
 module.exports.addSeller = function (newSeller) {
     newSeller.save();
 }
+
+module.exports.getSellerByUserId = function (user_id,callback) {
+    var query = {user_id: user_id}
+    Seller.findOne(query,callback);
+}

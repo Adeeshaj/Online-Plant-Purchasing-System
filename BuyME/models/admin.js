@@ -36,3 +36,8 @@ var Admin = module.exports = mongoose.model('Admin',AdminSchema);
 module.exports.addAdmin = function (newAdmin) {
     newAdmin.save();
 }
+
+module.exports.getAdminByUserId = function (user_id,callback) {
+    var query = {user_id: user_id}
+    Admin.findOne(query,callback);
+}

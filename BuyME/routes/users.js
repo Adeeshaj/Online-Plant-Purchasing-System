@@ -154,7 +154,56 @@ router.post('/auth',function (req,res,next) {
 
 router.get('/profile', passport.authenticate('jwt', {session:false}),function (req,res,next) {
     res.json({user: req.user});
-    res.sendFile(path.join(__dirname+'/../public/user_profile/index.html'));
 });
 
 module.exports = router;
+
+router.get('/getUser',function(req,res,next){
+    var user_id = req.query.user; 
+    var user_role = req.query.user_role;
+    if(user_role == 'buyer'){
+        Buyer.getBuyerByUserId(user_id,function(err,buyer){
+        if(err) throw err;
+        if(!buyer){
+            res.json({success: false, msg: "no buyer"})
+        }
+        else{
+            res.json(buyer);
+        }
+    })
+    }
+    if(user_role == 'seller'){
+        Seller.getSellerByUserId(user_id,function(err,seller){
+        if(err) throw err;
+        if(!seller){
+            res.json({success: false, msg: "no seller"})
+        }
+        else{
+            res.json(seller);
+        }
+    })
+    }
+    if(user_role == 'transport_provider'){
+        TransportProvider.getTransportProviderByUserId(user_id,function(err,transport_provider){
+        if(err) throw err;
+        if(!transport_provider){
+            res.json({success: false, msg: "no transport_provider"})
+        }
+        else{
+            res.json(transport_provider);
+        }
+    })
+    }
+    if(user_role == 'admin'){
+        Admin.getAdminByUserId(user_id,function(err,admin){
+        if(err) throw err;
+        if(!admin){
+            res.json({success: false, msg: "no admin"})
+        }
+        else{
+            res.json(admin);
+        }
+    })
+    }
+    
+});

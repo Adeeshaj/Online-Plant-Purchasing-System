@@ -53,3 +53,8 @@ var Buyer = module.exports = mongoose.model('Buyer',BuyerSchema);
 module.exports.addBuyer = function (newBuyer) {
     newBuyer.save();
 }
+
+module.exports.getBuyerByUserId = function (user_id,callback) {
+    var query = {user_id: user_id}
+    Buyer.findOne(query,callback);
+}
