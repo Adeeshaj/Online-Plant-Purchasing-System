@@ -1,0 +1,26 @@
+{
+  "name": "BuyMe",
+  "version": "1.0.0",
+  "description": "Online plant purchasing system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node app",
+    "test": "mocha --recursive **/test/runner.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Adeesha Jayasooriya",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "should": "^11.2.1"
+  }
+}
