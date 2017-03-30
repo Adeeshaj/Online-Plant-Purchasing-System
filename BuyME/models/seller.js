@@ -43,7 +43,7 @@ var SellerSchema = mongoose.Schema({
         type: Boolean,
         required: true
     },
-    products:[],//should add json object{object_id,object_name, quantity}
+    products:[],//should add json object{object_id,object_name, quantity, selling price}
     notification:[], // should add notification, active or not, date created
     transport_orders:[],
     ratings:[],
@@ -62,4 +62,9 @@ module.exports.addSeller = function (newSeller) {
 module.exports.getSellerByUserId = function (user_id,callback) {
     var query = {user_id: user_id}
     Seller.findOne(query,callback);
+}
+
+module.exports.addProduct = function (user_id,newProduct,callback) {
+    
+   
 }

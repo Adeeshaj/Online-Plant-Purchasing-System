@@ -13,14 +13,39 @@ myApp.config([ '$routeProvider', '$locationProvider',
        $routeProvider.when('/dashboard', {
             templateUrl : 'user_profile/index.html',
             controller : 'profileCtrl'
-        }).otherwise({
+        })
+        $routeProvider.when('/registerUser',{
+            templateUrl : 'register_form/index.html',
+            controller: 'registerCtrl'
+        })
+        $routeProvider.when('/seller/reqproduct', {
+            templateUrl : 'seller_request_products/index.html',
+            controller : 'sellerReqCtrl'
+        })
+        $routeProvider.when('/admin/settings', {
+            templateUrl : 'admin/settings/index.html',
+            controller : 'adminSettingsTabCtrl'
+        })
+        $routeProvider.when('/seller/settings', {
+            templateUrl : 'seller/settings/index.html',
+            controller : 'sellerSettingsTabCtrl'
+        })
+        $routeProvider.when('/buyer/settings', {
+            templateUrl : 'buyer/settings/index.html',
+            controller : 'buyerSettingsTabCtrl'
+        })
+        $routeProvider.when('/transportProvider/settings', {
+            templateUrl : 'transport_provider/settings/index.html',
+            controller : 'transportProviderSettingsTabCtrl'
+        })
+        .otherwise({
             redirectTo : 'ind.html'
         });
         //$locationProvider.html5Mode(true); //Remove the '#' from URL.
     } 
 ]);
 
-myApp.controller('appCtrl',['$scope','$http',function ($scope,$http) {
+myApp.controller('appCtrl',['$scope','$http','$location',function ($scope,$http,$location) {
     console.log("hello from app controller");
     
     $scope.user = {
@@ -32,7 +57,7 @@ myApp.controller('appCtrl',['$scope','$http',function ($scope,$http) {
                 data: $scope.user
             }).then(function successCallback(response) {
                 console.log(response);
-   
+                $location.path("/login");
              }, function errorCallback(response) {
                 console.log("Err in post");
                 console.log(response);
@@ -75,6 +100,10 @@ myApp.controller('loginCtrl',['$scope','$http','$window','$location',function($s
                 console.log(response);
             });
         }
+    }
+    
+    $scope.getRegister = function(){
+         $location.path("/registerUser");
     }
 }]);
 
@@ -127,7 +156,7 @@ myApp.controller('homeCtrl',['$scope',function($scope){
     
 }]);
 
-myApp.controller('headerCtrl',['$scope','$location',function($scope,$location){
+myApp.controller('headerCtrl',['$scope','$location','$window',function($scope,$location,$window){
     $scope.getlogin = function(){
         $location.path("/login");
     }
@@ -136,5 +165,156 @@ myApp.controller('headerCtrl',['$scope','$location',function($scope,$location){
     }
     $scope.getprofile = function(){
         $location.path("/dashboard");
+    }
+    
+    $scope.logout = function(){
+        $window.localStorage.removeItem('user');
+        $window.localStorage.removeItem('id_token');
+        $location.path("/login");
+    }
+    
+}]);
+
+myApp.controller('sellerReqCtrl',['$scope','$http',function($scope,$http){
+  
+    $scope.addproduct = function(){
+        $http({
+            method: 'POST',
+            url: '/users/auth',
+            data: $scope.product
+        }).then(function successCallback(response) {
+            console.log("success prodcut post");
+        },function errorCallback(response) {
+            
+            console.log("ERr in product post");
+            console.log(response);
+
+        });
+    }   
+    
+}]);
+
+myApp.controller('adminAddTypeCtrl',['$scope','$http',function($scope,$http){
+    $scope.type = {
+        addproductType:function(){
+        $http({
+            method: 'POST',
+            url: '/admins/addProductType',
+            data: $scope.type
+        }).then(function successCallback(response) {
+            console.log("success prodcut post");
+        },function errorCallback(response) {
+            
+            console.log("ERr in product post");
+            console.log(response);
+
+        });
+    }   
+    }
+    
+    
+}]);
+
+myApp.controller('userTabCtrl',['$scope','$window','$location',function($scope,$window,$location){
+    if(angular.fromJson($window.localStorage.getItem('user')).user_role == 'admin'){
+        $scope.onClickTab = function () {
+            $location.path("/admin/settings");
+        }
+    }
+    if(angular.fromJson($window.localStorage.getItem('user')).user_role == 'seller'){
+        $scope.onClickTab = function () {
+            $location.path("/seller/settings");
+        }
+    }
+    if(angular.fromJson($window.localStorage.getItem('user')).user_role == 'buyer'){
+        $scope.onClickTab = function () {
+            $location.path("/buyer/settings");
+        }
+    }
+    if(angular.fromJson($window.localStorage.getItem('user')).user_role == 'transport_provider'){
+        $scope.onClickTab = function () {
+            $location.path("/transportProvider/settings");
+        }
+    }
+    
+}]);
+
+myApp.controller('adminSettingsTabCtrl',['$scope',function($scope){
+     $scope.tabs = [{
+            title: 'Add Product Types',
+            url: 'addProductType.tpl.html'
+        }, {
+            title: 'Edit profile',
+            url: 'Editprofile.tpl.html'
+        
+    }];
+
+    $scope.currentTab = 'addProductType.tpl.html';
+
+    $scope.onClickTab = function (tab) {
+        $scope.currentTab = tab.url;
+    }
+    
+    $scope.isActiveTab = function(tabUrl) {
+        return tabUrl == $scope.currentTab;
+    }
+}]);
+
+myApp.controller('sellerSettingsTabCtrl',['$scope',function($scope){
+     $scope.tabs = [{
+            title: 'Add products',
+            url: 'addProduct.tpl.html'
+        }, {
+            title: 'Edit profile',
+            url: 'Editprofile.tpl.html'
+        
+    }];
+
+    $scope.currentTab = 'addProduct.tpl.html';
+
+    $scope.onClickTab = function (tab) {
+        $scope.currentTab = tab.url;
+    }
+    
+    $scope.isActiveTab = function(tabUrl) {
+        return tabUrl == $scope.currentTab;
+    }
+}]);
+
+myApp.controller('buyerSettingsTabCtrl',['$scope',function($scope){
+     $scope.tabs = [{
+            
+            title: 'Edit profile',
+            url: 'EditProfile.tpl.html'
+        
+    }];
+
+    $scope.currentTab = 'EditProfile.tpl.html';
+
+    $scope.onClickTab = function (tab) {
+        $scope.currentTab = tab.url;
+    }
+    
+    $scope.isActiveTab = function(tabUrl) {
+        return tabUrl == $scope.currentTab;
+    }
+}]);
+
+myApp.controller('transportProviderSettingsTabCtrl',['$scope',function($scope){
+     $scope.tabs = [{
+            
+            title: 'Edit profile',
+            url: 'EditProfile.tpl.html'
+        
+    }];
+
+    $scope.currentTab = 'EditProfile.tpl.html';
+
+    $scope.onClickTab = function (tab) {
+        $scope.currentTab = tab.url;
+    }
+    
+    $scope.isActiveTab = function(tabUrl) {
+        return tabUrl == $scope.currentTab;
     }
 }]);

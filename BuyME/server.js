@@ -7,6 +7,9 @@ var passport = require('passport');
 var users = require('./routes/users');
 var home = require('./routes/home');
 var register = require('./routes/register');
+var sellers = require('./routes/sellers');
+var admins = require('./routes/admins');
+
 
 var mongoose = require('mongoose');
 var config = require('./config/database');
@@ -34,6 +37,8 @@ app.use(express.static(__dirname + "/public"));
 app.use('/users',users);  
 app.use('/home',home);
 app.use('/register',register);
+app.use('/sellers',sellers);
+app.use('/admins',admins);
 
 //passport middleware
 app.use(passport.initialize());
