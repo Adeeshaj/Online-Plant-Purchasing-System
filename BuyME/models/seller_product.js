@@ -18,7 +18,3 @@ var ProductSchema = mongoose.Schema({
 });
 
 var Product = module.exports = mongoose.model('Product',ProductSchema);
-
-module.exports.addProduct = function (newProduct,callback) {
-    newProduct.save(callback);
-}

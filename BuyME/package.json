@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node app",
-    "test": "mocha --recursive **/test/runner.js"
+    "test": "mocha --recursive **/test/profile.test.js"
   },
   "dependencies": {
     "express": "*",
@@ -20,7 +20,9 @@
   "author": "Adeesha Jayasooriya",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^3.2.0",
-    "should": "^11.2.1"
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   }
 }

@@ -65,6 +65,16 @@ module.exports.getSellerByUserId = function (user_id,callback) {
 }
 
 module.exports.addProduct = function (user_id,newProduct,callback) {
-    
+    Seller.getSellerByUserId(user_id,function (err,seller) {
+        if(err) throw err;
+        if(!seller){
+            callback("seller not in the system");
+        }
+        else{   
+            console.log(newProduct);
+            seller.products.push(newProduct); 
+            seller.save(callback)
+        }
+    });  
    
 }

@@ -18,10 +18,6 @@ myApp.config([ '$routeProvider', '$locationProvider',
             templateUrl : 'register_form/index.html',
             controller: 'registerCtrl'
         })
-        $routeProvider.when('/seller/reqproduct', {
-            templateUrl : 'seller_request_products/index.html',
-            controller : 'sellerReqCtrl'
-        })
         $routeProvider.when('/admin/settings', {
             templateUrl : 'admin/settings/index.html',
             controller : 'adminSettingsTabCtrl'
@@ -56,11 +52,12 @@ myApp.controller('appCtrl',['$scope','$http','$location',function ($scope,$http,
                 url: '/users/register',
                 data: $scope.user
             }).then(function successCallback(response) {
-                console.log(response);
+                window.alert("User Successfuly registered");
                 $location.path("/login");
              }, function errorCallback(response) {
                 console.log("Err in post");
                 console.log(response);
+ 
             });
             console.log($scope.user)
         }
@@ -76,7 +73,7 @@ myApp.controller('loginCtrl',['$scope','$http','$window','$location',function($s
                 url: '/users/auth',
                 data: $scope.user
             }).then(function successCallback(response) {
-                console.log(response);
+        
                 var token = response.data.token;
                  $http({
                     method: 'GET',
@@ -87,17 +84,19 @@ myApp.controller('loginCtrl',['$scope','$http','$window','$location',function($s
                     }
                 }).then(function successCallback(response) {
                      console.log("success user get");
+                     window.alert("successfuly login to your profile");
                      $window.localStorage.setItem('id_token',angular.toJson(token));
                      $window.localStorage.setItem('user',angular.toJson(response.data.user));
                      $location.path("/dashboard");
                 },function errorCallback(response) {
-                    
+                    window.alert(response);
                     console.log("ERr in get");
                     console.log(response);
                 });
              }, function errorCallback(response) {
                 console.log("Err in post");
                 console.log(response);
+                window.alert(response);
             });
         }
     }
@@ -142,12 +141,14 @@ myApp.controller('profileCtrl',['$scope','$window','$http',function($scope,$wind
         url: 'users/getUser',
         params: {user:angular.fromJson($window.localStorage.getItem('user'))._id, user_role:angular.fromJson($window.localStorage.getItem('user')).user_role }
     }).then(function successCallback(response){
+    
         console.log(response);
         $scope.name = response.data.name;
         $scope.address = response.data.address;
         $scope.mobile_number = response.data.mobile_num;
     },function errorCallback(response){
         console.log(response);
+        window.alert(response);
     })
     
 }]);
@@ -176,23 +177,99 @@ myApp.controller('headerCtrl',['$scope','$location','$window',function($scope,$l
 }]);
 
 myApp.controller('sellerReqCtrl',['$scope','$http',function($scope,$http){
-  
+     console.log("hello from seller Req Ctrl");
+     
+    //drop down details get method
+    $scope.selected = "Choose one"
+     $http({
+        mehtod: 'GET',
+        url: 'sellers/getproducttypes'
+    }).then(function successCallback(response){
+        console.log(response.data);
+        
+        $scope.types = response.data;
+       
+        $scope.onClickTab = function (tab) {
+            $scope.currentTab = tab.type;
+            $scope.selected = tab.type;
+            $scope.product.type = tab.type;
+        }
+
+        $scope.isActiveTab = function(tabUrl) {
+            return tabUrl == $scope.currentTab;
+        }
+    },function errorCallback(response){
+        console.log(response);
+    });
+    
+    
+    //submit the product
     $scope.addproduct = function(){
         $http({
             method: 'POST',
-            url: '/users/auth',
+            url: 'sellers/requestProduct',
             data: $scope.product
         }).then(function successCallback(response) {
             console.log("success prodcut post");
+            window.alert("product type request success");
+            console.log(response);
         },function errorCallback(response) {
             
             console.log("ERr in product post");
             console.log(response);
-
+            
         });
     }   
     
 }]);
+
+myApp.controller('sellerAddproductCtrl',['$scope','$http','$window',function($scope,$http,$window){
+     
+    //drop down details get method
+    $scope.selected = "Choose one"
+     $http({
+        mehtod: 'GET',
+        url: 'sellers/getproducttypes'
+    }).then(function successCallback(response){
+        console.log(response.data);
+        
+        $scope.types = response.data;
+       
+        $scope.onClickTab = function (tab) {
+            $scope.currentTab = tab.type;
+            $scope.selected = tab.type;
+            $scope.product.type = tab.type;
+        }
+
+        $scope.isActiveTab = function(tabUrl) {
+            return tabUrl == $scope.currentTab;
+        }
+    },function errorCallback(response){
+        console.log(response);
+    });
+    
+      angular.fromJson($window.localStorage.getItem('user'))._id;
+    //submit the product
+    $scope.addproduct = function(){
+        $http({
+            method: 'POST',
+            url: 'sellers/addProduct',
+            data: {products:$scope.product,seller:angular.fromJson($window.localStorage.getItem('user'))._id}
+
+        }).then(function successCallback(response) {
+            console.log("success prodcut post");
+            window.alert("your product added to the system");
+            console.log(response);
+        },function errorCallback(response) {
+            
+            console.log("ERr in product post");
+            console.log(response);
+            
+        });
+    }   
+    
+}]);
+
 
 myApp.controller('adminAddTypeCtrl',['$scope','$http',function($scope,$http){
     $scope.type = {
@@ -215,6 +292,8 @@ myApp.controller('adminAddTypeCtrl',['$scope','$http',function($scope,$http){
     
 }]);
 
+
+// tab controlers in user settings 
 myApp.controller('userTabCtrl',['$scope','$window','$location',function($scope,$window,$location){
     if(angular.fromJson($window.localStorage.getItem('user')).user_role == 'admin'){
         $scope.onClickTab = function () {
@@ -267,6 +346,10 @@ myApp.controller('sellerSettingsTabCtrl',['$scope',function($scope){
         }, {
             title: 'Edit profile',
             url: 'Editprofile.tpl.html'
+        },{
+            title: 'Request new Product',
+            url: 'ReqeustNew.tpl.html'
+       
         
     }];
 

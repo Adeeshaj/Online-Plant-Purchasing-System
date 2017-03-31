@@ -21,7 +21,7 @@ router.post('/register',function (req,res,next) {
         if(err){
             res.json({sucess: false, msg:'Failed to register user', error:err});
         }else{
-            res.json({sucess: true, msg:'user registered'});
+            res.json({sucess: true, msg:'user registered', res: user});
             if(newUser.user_role == 'seller'){
                 let newSeller = new Seller({
                     user_id: newUser._id,

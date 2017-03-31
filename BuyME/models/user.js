@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var config = require('../config/database');
+mongoose.Promise = global.Promise;
 
 //User Schema
 var UserSchema = mongoose.Schema({
@@ -47,9 +48,7 @@ module.exports.addUser = function (newUser, callback) {
              callback("select another username");
              console.log("select another username");
         }
-    });
-   
-    
+    });  
 }
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {

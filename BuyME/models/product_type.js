@@ -14,3 +14,7 @@ var ProductType = module.exports = mongoose.model('ProductType',ProductTypeSchem
 module.exports.addProductType = function (newProductType,callback) {
     newProductType.save(callback);
 }
+
+module.exports.getProudctTypes = function (callback) {
+    ProductType.find(callback)
+}
