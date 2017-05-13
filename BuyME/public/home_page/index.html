@@ -12,53 +12,41 @@
                 <button class="btn btn-primary" type="submit">Advance search</button>
             </div>
         </div>
-        
     </div>
 </div>
 <div class="row">
-    <div class="col-md-10 col-md-push-1">
-        <div class="panel panel-default">
+    <div class="col-md-8 col-md-push-2">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Flowers </h3></div>
             <div class="panel-body">
-                <div class="panel panel-default">
+                <div class="panel panel-info" ng-repeat="flower in flowers">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Roses </h3></div>
-                    <div class="panel-body"><span>Seller : Madura rathnayke</span>
+                        <h3 class="panel-title">{{flower.name}}</h3></div>
+                    <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6"><img src= "/home_page/images.jpg"></div>
-                            <div class="col-md-6"><span class="label label-success">Rs. 200</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Orchids </h3></div>
-                    <div class="panel-body"><span> </span>
-                        <label>Seller : Kapila Jayawardane</label>
-                        <div class="row">
-                            <div class="col-md-6"><img src = "/home_page/images (2).jpg"></div>
-                            <div class="col-md-6"><span class="label label-success">Rs. 400</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">sun flower</h3></div>
-                    <div class="panel-body"><span>Seller : Kapila Jayawardane</span>
-                        <div class="row">
-                            <div class="col-md-6"><img src = "/home_page/images (1).jpg"></div>
+                            <div class="col-md-3"><img src= "/home_page/images.jpg" width="128" height="128"></div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <span class="label label-success">Rs. 320</span>
+                                    <div class="col-md-12">
+                                        <h4><span class="label label-primary">{{flower.price}} LKR</span></h4>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label> Description </label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>{{flower.description}}</h5>
+                                        <span>Seller: {{flower.sellerName}}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-info"> Buy Now</button>
+                            </div>
+                        </div> 
                     </div>
                 </div><a href="#">More </a></div>
+
+                
         </div>
     </div>
     <div class="col-md-10 col-md-push-1">

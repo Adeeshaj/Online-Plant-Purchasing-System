@@ -8,12 +8,13 @@
     "test": "mocha --recursive **/test/profile.test.js"
   },
   "dependencies": {
-    "express": "*",
-    "mongoose": "*",
     "bcryptjs": "*",
-    "cors": "*",
-    "jsonwebtoken": "*",
     "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "mongoose-random": "^0.1.1",
     "passport": "*",
     "passport-jwt": "*"
   },

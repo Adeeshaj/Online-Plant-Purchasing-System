@@ -153,15 +153,23 @@ myApp.controller('profileCtrl',['$scope','$window','$http',function($scope,$wind
     
 }]);
 
-myApp.controller('homeCtrl',['$scope',function($scope){
+myApp.controller('homeCtrl',['$scope','$http',function($scope,$http){
     $http({
         mehtod: 'GET',
-        url: 'home/getproducts'
+        url: 'home/getproducts',
+        params: {type: 'Flowers'}
         }).then(function successCallback(response){
-            console.log(response);
-        },function errorCallback(response){
-            console.log(response);
+            console.log(response.data);
+            $scope.flowers = response.data.data;
+            
+        },function errorCallback(response){  
+            console.log({message: "Error",response: response}); 
     });
+    
+    
+    
+    
+    
 
 }]);
 myApp.controller('headerCtrl',['$scope','$location','$window',function($scope,$location,$window){

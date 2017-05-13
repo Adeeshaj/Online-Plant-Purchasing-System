@@ -8,7 +8,22 @@ router.get('/',function(req,res,next){
 });
 
 router.get('/getproducts',function(req,res,next){
-    
+    var type = req.query.type;
+    SellerProduct.getProductsRandom(type, function (err, products) {
+        
+        if(err) {
+
+            return res.json({success: true, data: err}); 
+        }
+
+        if(!products){
+            return res.json({success: false, msg: "no products"})
+        }
+        else{
+            
+            return res.json({success: true, data: products}); 
+        }
+    });
 });
 
 module.exports = router;
