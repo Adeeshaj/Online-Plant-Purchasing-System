@@ -26,8 +26,6 @@ mongoose.connection.on('error',function(err){
    console.log("database error: "+ err) 
 });
 
-
-
 //Using Middlewares
 app.use(cors());
 app.use(bodyparser.json());
@@ -45,7 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
 
-
+//server run
 app.listen(3000);
 console.log("Server running on port 3000");
 

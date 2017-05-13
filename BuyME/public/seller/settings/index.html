@@ -1,102 +1,110 @@
 <div id="tabs" ng-controller="sellerSettingsTabCtrl">
     <div class="btn-group btn-group-lg col-md-8 col-md-offset-3" role="group" aria-label="Large button group">
-        <button type="button" class="btn btn-info" ng-repeat="tab in tabs" 
-            ng-class="{active:isActiveTab(tab.url)}" 
-            ng-click="onClickTab(tab)">{{tab.title}}</button>
+        <button type="button" class="btn btn-info" ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</button>
     </div>
     <div id="mainView">
         <div ng-include="currentTab"></div>
     </div>
 </div>
 <script type="text/ng-template" id="addProduct.tpl.html">
-<div class="row register-form" ng-controller="sellerAddproductCtrl">
-    <div class="col-md-8 col-md-offset-2">
-        <form class="form-horizontal custom-form">
-            <h1>Add Products</h1>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Product Name </label>
-                </div>
-                <div class="col-sm-6 input-column">
-                    <input class="form-control" type="text" ng-model="product.name">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Product type </label>
-                </div>
-                <div class="col-sm-6 input-column">
-                    <div>
-                       <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"> {{selected}}<span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-repeat="x in types" ng-class={active:isActiveTab(x.type)}  ng-click="onClickTab(x)">{{x.type}} </a></li>
-                                
-                            </ul>
+    <div class="row register-form" ng-controller="sellerAddproductCtrl">
+        <div class="col-md-8 col-md-offset-2">
+            <form class="form-horizontal custom-form">
+                <h1>Add Products</h1>
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Product type </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" ng-click="clickTypeBtn()"> {{selected}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a ng-repeat="x in types" ng-class={active:isActiveTab(x.type)} ng-click="onClickTab(x)">{{x.type}} </a></li>
+
+                                </ul>
+                            </div>
                         </div>
-                    </div>    
-                </div>  
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Quantity (Avaialability on Stock) </label>
+                    </div>
                 </div>
-                <div class="col-sm-6 input-column">
-                    <input class="form-control" type="text" ng-model="product.quantity">
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Product Name </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" ng-click="clickNameBtn()"> {{selectedName}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a ng-repeat="x in names" ng-class={active:isActiveNamesTab(x.name)} ng-click="onClickNamesTab(x)">{{x.name}} </a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Selling Price (Rs. per one)  </label>
+
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Quantity (Avaialability on Stock) </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input class="form-control" type="text" ng-model="product.quantity">
+                    </div>
                 </div>
-                <div class="col-sm-6 input-column">
-                    <input class="form-control" type="text" ng-model="product.price">
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Selling Price (Rs. per one)  </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input class="form-control" type="text" ng-model="product.price">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Description </label>
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Description </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input class="form-control" type="text" ng-model="product.description">
+                    </div>
                 </div>
-                <div class="col-sm-6 input-column">
-                    <input class="form-control" type="text" ng-model="product.description">
-                </div>
-            </div>
-            <button class="btn btn-default submit-button" type="button" ng-click="addproduct()">Submit </button>
-        </form>
+                <button class="btn btn-default submit-button" type="button" ng-click="addproduct()">Submit </button>
+            </form>
+        </div>
     </div>
-</div>
+
 </script>
 <script type="text/ng-template" id="ReqeustNew.tpl.html">
-<div class="row register-form" ng-controller="sellerReqCtrl">
-    <div class="col-md-8 col-md-offset-2">
-        <form class="form-horizontal custom-form">
-            <h1>Request New Products</h1>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Product Name </label>
+    <div class="row register-form" ng-controller="sellerReqCtrl">
+        <div class="col-md-8 col-md-offset-2">
+            <form class="form-horizontal custom-form">
+                <h1>Request New Products</h1>
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Product Name </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input class="form-control" type="text" ng-model="product.name">
+                    </div>
                 </div>
-                <div class="col-sm-6 input-column">
-                    <input class="form-control" type="text" ng-model="product.name">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="control-label" for="name-input-field">Product type </label>
-                </div>
-                <div class="col-sm-6 input-column">
-                    <div>
-                       <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"> {{selected}}<span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-repeat="x in types" ng-class={active:isActiveTab(x.type)}  ng-click="onClickTab(x)">{{x.type}} </a></li>
-                                
-                            </ul>
+                <div class="form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="control-label" for="name-input-field">Product type </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"> {{selected}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a ng-repeat="x in types" ng-class={active:isActiveTab(x.type)} ng-click="onClickTab(x)">{{x.type}} </a></li>
+
+                                </ul>
+                            </div>
                         </div>
+                        <button class="btn btn-default submit-button" type="button" ng-click="addproduct()">Submit </button>
+            </form>
             </div>
-            <button class="btn btn-default submit-button" type="button" ng-click="addproduct()">Submit </button>
-        </form>
-    </div>
-</div>
+            </div>
 </script>
 
 <script type="text/ng-template" id="Editprofile.tpl.html">

@@ -71,7 +71,7 @@ module.exports.addProduct = function (user_id,newProduct,callback) {
             callback("seller not in the system");
         }
         else{   
-            console.log(newProduct);
+           
             seller.products.push(newProduct); 
             seller.save(callback)
         }

@@ -154,9 +154,16 @@ myApp.controller('profileCtrl',['$scope','$window','$http',function($scope,$wind
 }]);
 
 myApp.controller('homeCtrl',['$scope',function($scope){
-    
-}]);
+    $http({
+        mehtod: 'GET',
+        url: 'home/getproducts'
+        }).then(function successCallback(response){
+            console.log(response);
+        },function errorCallback(response){
+            console.log(response);
+    });
 
+}]);
 myApp.controller('headerCtrl',['$scope','$location','$window',function($scope,$location,$window){
     $scope.getlogin = function(){
         $location.path("/login");
@@ -224,21 +231,19 @@ myApp.controller('sellerReqCtrl',['$scope','$http',function($scope,$http){
 }]);
 
 myApp.controller('sellerAddproductCtrl',['$scope','$http','$window',function($scope,$http,$window){
-     
-    //drop down details get method
-    $scope.selected = "Choose one"
-     $http({
+    //drop down details of product types get method
+    $scope.selected = "Choose One"
+    $http({
         mehtod: 'GET',
         url: 'sellers/getproducttypes'
     }).then(function successCallback(response){
         console.log(response.data);
-        
         $scope.types = response.data;
        
         $scope.onClickTab = function (tab) {
             $scope.currentTab = tab.type;
             $scope.selected = tab.type;
-            $scope.product.type = tab.type;
+            $scope.product = {type:tab.type};
         }
 
         $scope.isActiveTab = function(tabUrl) {
@@ -247,8 +252,40 @@ myApp.controller('sellerAddproductCtrl',['$scope','$http','$window',function($sc
     },function errorCallback(response){
         console.log(response);
     });
+    //when click type combobox choose one appear in name combo box
+    $scope.clickTypeBtn = function(){
+        $scope.selectedName = "Choose One";
+    }
+    //drop down details of product names get method
+    $scope.selectedName = "Choose One"
+    $scope.clickNameBtn = function(){
+        
+        $http({
+        mehtod: 'GET',
+        url: 'sellers/getproductnames',
+        params: {type:$scope.selected}
+        }).then(function successCallback(response){
+            console.log(response.data);
+            $scope.names = response.data;
+            
+            $scope.onClickNamesTab = function(tab){
+                $scope.currentNameTab = tab.name;
+                $scope.selectedName = tab.name;
+                $scope.product.name = tab.name;
+            }
+            
+            $scope.isActiveNamesTab = function(tabUrl){
+                return tabUrl == $scope.currentNameTab;
+            }
+        },function errorCallback(response){
+            console.log(response);
+        });
+
+    }
+      
     
-      angular.fromJson($window.localStorage.getItem('user'))._id;
+    
+    angular.fromJson($window.localStorage.getItem('user'))._id;
     //submit the product
     $scope.addproduct = function(){
         $http({
@@ -401,3 +438,4 @@ myApp.controller('transportProviderSettingsTabCtrl',['$scope',function($scope){
         return tabUrl == $scope.currentTab;
     }
 }]);
+
