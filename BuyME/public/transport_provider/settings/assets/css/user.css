@@ -188,3 +188,10 @@ img.dropdown-image{
   outline:none;
 }
 
+body {
+    background-color: #E9EAED;
+}
+
+div.panel-info{
+    background-color: #E9EAED;
+}

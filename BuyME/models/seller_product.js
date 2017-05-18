@@ -74,3 +74,35 @@ module.exports.getProductsRandom = function(type,callback){
         
     });
 }
+
+module.exports.getProducts = function(type,callback){
+    var query = {type: type}
+    SellerProduct.find(query,callback);
+}
+
+module.exports.getSellerProductById = function (_id,callback) {
+    SellerProduct.findById(_id,callback);
+}
+
+module.exports.editProductQuantity = function (id,buyerQuantity,callback) {
+    SellerProduct.getSellerProductById(id,function (err,sellerProduct) {
+        if(err) throw err;
+        if(!sellerProduct){
+            callback("sellerProduct not in the system");
+        }
+        
+        else{   
+            var newquantity = sellerProduct.quantity - buyerQuantity;
+            if(newquantity < 0){
+                callback("Out of stock")
+            }
+            else{
+                sellerProduct.quantity = newquantity; 
+                sellerProduct.save(callback);
+            }
+            
+        }
+    });  
+}
+
+

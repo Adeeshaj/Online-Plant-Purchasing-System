@@ -6,3 +6,12 @@ div.panel-info{
     background-color: #E9EAED;
 }
 
+div.jumbotron {
+  margin-bottom: 0px;
+  height: 350px;
+  color: crimson;
+  text-shadow: wheat 0.3em 0.3em 0.3em;
+  background:url('background.jpg') no-repeat center center;
+}
+
+

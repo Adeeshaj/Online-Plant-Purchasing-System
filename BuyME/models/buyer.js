@@ -58,3 +58,4 @@ module.exports.getBuyerByUserId = function (user_id,callback) {
     var query = {user_id: user_id}
     Buyer.findOne(query,callback);
 }
+

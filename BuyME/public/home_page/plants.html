@@ -1,0 +1,33 @@
+   <div class="col-md-8 col-md-push-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Plants </h3></div>
+            <div class="panel-body">
+                <div class="panel panel-info" ng-repeat="plant in plants">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{plant.name}}</h3></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3"><img src= "/home_page/images.jpg" width="128" height="128"></div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><span class="label label-primary">{{plant.price}} LKR</span></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>{{plant.description}}</h5>
+                                        <span>Seller: {{plant.sellerName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-info" ng-click="buyProduct(plant)"> Buy Now</button>
+                            </div>
+                        </div> 
+                    </div>
+          
+        </div>
+    </div>
+<link rel="stylesheet" href="/home_page/assets/css/user.css">

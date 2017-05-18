@@ -63,7 +63,7 @@ router.post('/addProduct',function (req,res,next) {
                     res.json({sucess: false, msg:'Failed to register product', error:err});
                 }
                 else{
-                    res.json({sucess: true, msg:'product registered', product: product});
+                    
                 }
             });
         }   

@@ -9,6 +9,7 @@ var home = require('./routes/home');
 var register = require('./routes/register');
 var sellers = require('./routes/sellers');
 var admins = require('./routes/admins');
+var buyer = require('./routes/buyer');  
 
 
 var mongoose = require('mongoose');
@@ -37,7 +38,7 @@ app.use('/home',home);
 app.use('/register',register);
 app.use('/sellers',sellers);
 app.use('/admins',admins);
-
+app.use('/buyers',buyer);
 //passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

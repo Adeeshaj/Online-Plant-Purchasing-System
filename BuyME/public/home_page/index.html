@@ -1,19 +1,14 @@
+
 <div class="row">
-    <div class="col-md-6 col-md-push-1">
-        <label>Buy Plant is first Online plant purchasing system in Sri Lanka. Any one can buy and deliver our partners products.</label>
-    </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-3">
-        <div class="row">
-            <div class="col-md-6">
-                <input type="search" placeholder="Quick Search">
-            </div>
-             <div class="col-md-6">
-                <button class="btn btn-primary" type="submit">Advance search</button>
-            </div>
-        </div>
+    <div class="col-md-10 col-md-push-1">
+         <div class="jumbotron">
+            <h1>Buy Plant</h1>
+            <p>Buy Plant is first Online plant purchasing system in Sri Lanka. Any one can buy and deliver our partners products.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> <h4>or</h4> <a class="btn btn-primary btn-lg" href="#" role="button">Search Our Products</a>  </p>
+         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-8 col-md-push-2">
         <div class="panel panel-primary">
@@ -40,57 +35,75 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-info"> Buy Now</button>
+                                <button class="btn btn-info" ng-click="buyProduct(flower)"> Buy Now</button>
                             </div>
                         </div> 
                     </div>
-                </div><a href="#">More </a></div>
-
-                
+                </div><a href="/#/home/flowers">More </a></div> 
         </div>
     </div>
-    <div class="col-md-10 col-md-push-1">
-        <div class="panel panel-default">
+    <div class="col-md-8 col-md-push-2">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Plants </h3></div>
             <div class="panel-body">
-                <div class="panel panel-default">
+                <div class="panel panel-info" ng-repeat="plant in plants">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Panel Heading</h3></div>
-                    <div class="panel-body"><span>Panel Body</span></div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel Heading</h3></div>
-                    <div class="panel-body"><span>Panel Body</span></div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel Heading</h3></div>
-                    <div class="panel-body"><span>Panel Body</span></div>
-                </div><a href="#">More </a></div>
+                        <h3 class="panel-title">{{plant.name}}</h3></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3"><img src= "/home_page/images.jpg" width="128" height="128"></div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><span class="label label-primary">{{plant.price}} LKR</span></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>{{plant.description}}</h5>
+                                        <span>Seller: {{plant.sellerName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-info" ng-click="buyProduct(plant)"> Buy Now</button>
+                            </div>
+                        </div> 
+                    </div>
+                </div><a href="/#/home/plants">More </a></div> 
         </div>
     </div>
-    <div class="col-md-10 col-md-push-1">
-        <div class="panel panel-default">
+    <div class="col-md-8 col-md-push-2">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Seeds </h3></div>
             <div class="panel-body">
-                <div class="panel panel-default">
+                <div class="panel panel-info" ng-repeat="seed in seeds">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Panel Heading</h3></div>
-                    <div class="panel-body"><span>Panel Body</span></div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel Heading</h3></div>
-                    <div class="panel-body"><span>Panel Body</span></div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Panel Heading</h3></div>
-                    <div class="panel-body"><span>Panel Body</span></div>
-                </div><a href="#">More </a></div>
+                        <h3 class="panel-title">{{seeds.name}}</h3></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3"><img src= "/home_page/images.jpg" width="128" height="128"></div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><span class="label label-primary">{{seeds.price}} LKR</span></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>{{seeds.description}}</h5>
+                                        <span>Seller: {{seeds.sellerName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-info" ng-click="buyProduct(seeds)"> Buy Now</button>
+                            </div>
+                        </div> 
+                    </div>
+                </div><a href="/#/home/seeds">More </a></div> 
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ var Buyer = require('../models/buyer');
 var Seller = require('../models/seller');
 var TransportProvider = require('../models/transport_provider');
 var Admin = require('../models/admin');
+var Orders = require('../models/order');
 var config = require('../config/database');
 var path = require('path');
 
@@ -206,4 +207,20 @@ router.get('/getUser',function(req,res,next){
     })
     }
     
+});
+
+router.get('/getOrders',function (req,res,next) {
+     var user_id = req.query.user; 
+     var user_role = req.query.user_role;
+     
+     Orders.getOrdersByUserId(user_id,user_role,function (err,orders) {
+         if(err) throw err;
+         if(!orders){
+             res.json({ success: true, msg: "no orders"});
+         }
+         else{
+             console.log(orders);
+             res.json(orders);
+         }
+     });
 });
